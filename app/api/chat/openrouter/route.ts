@@ -15,12 +15,13 @@ export async function POST(request: Request) {
   }
 
   try {
-    const profile = await getServerProfile()
+    const apiKey = process.env.OPENROUTER_API_KEY || ""
 
-    checkApiKey(profile.openrouter_api_key, "OpenRouter")
+checkApiKey(apiKey, "OpenRouter")
 
-    const openai = new OpenAI({
-      apiKey: profile.openrouter_api_key || "",
+const openai = new OpenAI({
+  apiKey,
+
       baseURL: "https://openrouter.ai/api/v1"
     })
 
